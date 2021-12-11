@@ -3,10 +3,9 @@ import pandas as pd
 import scipy.stats as st
 from sklearn.linear_model import LinearRegression
 
-# Insert your scores for the two simulated exams for Becker 4.1
-
 
 def get_predictions(score1: str, score2: str):
+    """Insert your scores for the two simulated exams for Becker 4.1"""
     scores = np.array([float(score1), float(score2)])
 
     df = pd.read_csv("far.csv")
