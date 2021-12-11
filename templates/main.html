@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Becker to CPA <i id="question-icon" class="fa fa-question-circle" style="font-size:24px"></i></h3>
+    <article class="message is-link" style="z-index:9;display:none" id="message-box">
+        <div class="message-header">
+          <p>Note</p>
+          <button class="delete" aria-label="delete" id="delete-message-box"></button>
+        </div>
+        <div class="message-body">
+          This uses data from <a href="https://docs.google.com/spreadsheets/d/1WShobew1j_uGAf2K1bpoDppqzqjBpBuPsjmmjdJNHKw/htmlview?pli=1#gid=1325609460">here</a>
+          to convert Becker representative Becker exams to a predicted score on the CPA exam. Submit one or two test scores from Becker V4.1.
+        </div>
+      </article>
+    <div class="box">
+        <form method="POST">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="score1" placeholder="Score 1" autofocus="" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="number" name="score2" placeholder="Score 2" autofocus="">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <select class="input is-large" name="exam" required>
+                        <option value="far">FAR</option>
+                        <option value="reg">REG</option>
+                        <option value="aud">AUD</option>
+                        <option value="bec">BEC</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="button is-block is-info is-large is-fullwidth">Get Prediction</button>
+        </form>
+    </div>
+    <div class="box">
+        <h3 class="title" style="color:black;text-align:left">Results:</h3>
+        <div class="content">
+            {% if result == None %}
+                <h3 style="text-align:left">Enter scores to see results</h3>
+            {% else %}
+            <h3 style="text-align:left">Predicted Score: {{result.pred}}</h3>
+            <h3 style="text-align:left">Passing Chance: {{result.prob}}</h3>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    box = document.querySelector("#message-box")
+    deleteBox = document.querySelector("#delete-message-box")
+    quesIcon = document.querySelector("#question-icon")
+
+    quesIcon.onclick = function(){box.style.display = ""}
+    deleteBox.onclick = function(){box.style.display = "None"}
+
+</script>
+{% endblock %}
