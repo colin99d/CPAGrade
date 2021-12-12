@@ -62,11 +62,11 @@ def get_predictions(exam: str, score1: str, score2: str) -> Dict[str, str]:
 
     scores = [float(score1), float(score2)] if score2 else [float(score1)]
     np_scores = np.array(scores)
-    user_scores = np_scores.mean()
+    user_mean = np_scores.mean()
 
-    intercept, coef, mean_inc, std_inc = get_calculations(exam, scores)
+    intercept, coef, mean_inc, std_inc = get_calculations(exam, np_scores)
 
-    z = (mean_inc + user_scores - 75) / std_inc
+    z = (mean_inc + user_mean - 75) / std_inc
     prob = st.norm.cdf(z)
     line_pred = intercept + np.dot(scores, coef)
     return {"pred": f"{line_pred:.2f}", "prob": f"{prob*100:.2f}%"}
